@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+	<name>VO Laser GCode generator</name>
+	<id>com.vo.laser_gcode</id>
+	
+	<dependency type="executable" location="extensions">vo_laser_gcode.py</dependency>
+	<dependency type="executable" location="extensions">inkex.py</dependency>
+	    	
+	<_param name="Title" type="description">VO Laser GCode generator</_param>
+    
+	<param name="directory" type="string" _gui-text="Directory" _gui-description="Export directory"></param>
+	<param name="filename" type="string"  _gui-text="File" _gui-description="Name of generated file">gcode.txt</param>
+	<param name="overwrite" type="boolean" _gui-text="Overwrite" _gui-description="Overwrite existing file or add numeric suffix">true</param>
+
+	<param name="resolution" type="enum" _gui-text="Resolution" _gui-description="Resolution of image in pixels/mm">
+		<_item value="10">10 pixel/mm</_item>
+		<_item value="5">5 pixel/mm</_item>
+		<_item value="2">2 pixel/mm</_item>
+		<_item value="1">1 pixel/mm</_item>
+	</param>
+
+	<param name="bg_color" type="enum" _gui-text="Background color" _gui-description="Replace transparency with selected color">
+		<_item value="#ffffff">White</_item>
+		<_item value="#000000">Black</_item>
+	</param>
+	
+	<param name="grayscale_type" type="enum" _gui-text="Grayscale type" _gui-description="Conversion to grayscale algorithm">
+		<_item value="1">0.21R + 0.71G + 0.07B</_item>
+		<_item value="2">(R + G + B)/3</_item>
+		<_item value="3">R</_item>
+		<_item value="4">G</_item>
+		<_item value="5">B</_item>
+		<_item value="6">Max Color</_item>
+		<_item value="7">Min Color</_item>
+	</param>
+
+	<param name="speed" type="int" min="1" max="5000" _gui-text="Speed (mm/min)" _gui-description="Engraving speed mm/min">800</param>
+	<param name="cross" type="boolean" _gui-text="Cross-Hatch" _gui-description="Engrave cross-hatch pattern (horizontal then verical)">false</param>
+	<param name="pause" type="boolean" _gui-text = "Cross-Hatch Pause" _gui_description = "Pause program before vertical engraving">false</param>
+	<param name="overscanning" type="int" min="0" _gui-text="Overscanning (mm)" _gui-description="Distance to overscan">0</param>
+	<param name="max_power" type="int" min="0" max="100" _gui-text="Max power %" _gui-description="Max power in percents">100</param>
+
+	<param name="homing" type="enum" _gui-text="Homing" _gui-description="Homing command">
+		<_item value="1">$H (GRBL)</_item>
+		<_item value="2">G28 (Standard)</_item>
+		<_item value="3">No Homing</_item>
+	</param>
+	
+	<effect needs-live-preview="false"> 
+        <object-type>all</object-type>
+        <effects-menu>
+            <submenu name="VO"/>
+        </effects-menu>
+    </effect>
+    
+	<script>
+    	<command reldir="extensions" interpreter="python">vo_laser_gcode.py</command>
+    </script>
+</inkscape-extension>
+
+
